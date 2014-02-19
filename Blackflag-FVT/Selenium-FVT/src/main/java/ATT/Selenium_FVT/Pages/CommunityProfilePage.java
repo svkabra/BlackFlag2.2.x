@@ -10,112 +10,112 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
 import ATT.Selenium_FVT.Utilities.Browser.WebPage;
-
+import ATT.Selenium_FVT.Utilities.Component.Constants;
 
 public class CommunityProfilePage extends WebPage {
 
+	/* Parameterized Constructor */
 	public CommunityProfilePage(WebDriver driver) {
 		super(driver);
 		// TODO Auto-generated constructor stub
 	}
+	
+	// Page Object "Company Name" header
+	@FindBy(how = How.ID, using = "text_company")
+	private WebElement companyName;
 
-		
+	// Page Object "Job Title" header
+	@FindBy(how = How.ID, using = "text_jobtitle")
+	private WebElement jobTitle;
+
+	// Page Object "City" header
+	@FindBy(how = How.ID, using = "text_city")
+	private WebElement city;
+
+	// Page Object "State" header
+	@FindBy(how = How.NAME, using = "state_dropdown")
+	private WebElement state;
+
+	// Page Object "Country" header
+	@FindBy(how = How.ID, using = "country_dropdown")
+	private WebElement country;
+
+	// Page Object "Name" header
+	@FindBy(how = How.ID, using = "text_name")
+	private WebElement name;
+
+	// Page Object "URL" header
+	@FindBy(how = How.ID, using = "text_url")
+	private WebElement url;
+
+	// Page Object "Text Area Quotes"
+	@FindBy(how = How.ID, using = "text_area_quotes")
+	private WebElement favQuote;
+
+	// Page Object "Submit"
+	@FindBy(how = How.NAME, using = "submit")
+	private WebElement updateInformation;
+
+	// Page Object "View My Profile" link
+	 @FindBy(how=How.LINK_TEXT, using="View my Profile")
+	private WebElement viewMyProfile;
+
+	// Page Object "My Settings" link
+	 @FindBy(how=How.CSS, using="div.content > a")
+	private WebElement mySettings;
+
+	// Page Object "Upgrade To Premium Access" Button
+	 @FindBy(how=How.CSS, using="css=div.floatRight.manageAccountItemCall > a.button > span")
+	private WebElement upgradeToPremiumAccessButtonCommunityProfilePage;
+
+	 //Page Object "Company Name Validation Msg"
+	 @FindBy(how=How.CSS, using="label[class=field_error][for=text_company][generated=true]")
+	 public WebElement CompanyNameValidationMsg;
+
+	 @FindBy(how=How.CSS, using="label[class=field_error][for=text_jobtitle][generated=true]")
+	 public WebElement JobTitleValidationMsg;
+
 	@Override
 	public void openURL() {
-		//driver.get(APIM_URL);
-		driver.navigate().to("https://devpgm-uat-app.eng.mobilephone.net/developer/forward.jsp?passedItemId=100006");
+		driver.navigate().to(Constants.APIM_HOME_URL);
 		waitForPageToLoad();
 		PageFactory.initElements(driver, this);
-		
+
 	}
 	
-	
-	//Page Object "Company Name" header 
-	@FindBy(how=How.ID, using="text_company")
-	private WebElement Company_Name;
-	
-	//Page Object "Job Title" header 
-		@FindBy(how=How.ID, using="text_jobtitle")
-		private WebElement JobTitle;
-		
-	//Page Object "City" header 
-		@FindBy(how=How.ID, using="text_city")
-		private WebElement City;
-		
-	//Page Object "State" header 
-		@FindBy(how=How.NAME, using="state_dropdown")
-		private WebElement State;
-		
-	//Page Object "Country" header 
-		@FindBy(how=How.ID, using="country_dropdown")
-		private WebElement Country;
-		
-	//Page Object "Name" header 
-		@FindBy(how=How.ID, using="text_name")
-		private WebElement Name;
-		
-	//Page Object "Name" header 
-		@FindBy(how=How.ID, using="text_url")
-		private WebElement Url;	
-		
-	//Page Object "Name" header 
-		@FindBy(how=How.ID, using="text_area_quotes")
-		private WebElement Fav_Quote;	
-		
-	//Page Object "Name" header 
-		@FindBy(how=How.NAME, using="submit")
-		private WebElement Update_Information;
-		
-	//Page Object "Name" header 
-		@FindBy(how=How.XPATH, using="//*[@id='profile_form']/div/div/div[2]/p[2]/a")
-		private WebElement ViewMyProfile;
-		
-	//Page Object "Name" header 
-		@FindBy(how=How.XPATH, using="//*[@id='profile_page']/div[3]/div[2]/div[2]/div[2]/a")
-		private WebElement MySettings;
-		
-		
-	//Page Object "Name" header 
-		@FindBy(how=How.XPATH, using="//*[@id='profile_page']/div[2]/div/div/a")
-		private WebElement upgradeToPremiumAccessButtonCommunityProfilePage;
-	
-		
-//*********************************************ROHIT***************************************		
-		
-		
-		
-		
-	//method to click ViewMyProfile
-		public ManageMyAcct clickViewMyProfile(){
-			
-			ViewMyProfile.click();
-			waitForPageToLoad();
-						
-			return PageFactory.initElements(driver, ManageMyAcct.class);
-			
-		}
-		
-		
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@------------------------------@@@@@@@@@@@@@@@@@@@@@@@
-	
-	// method to manage alert pop up
+	/* Method to return ApimLogin Page elements */
+	public APIMLoginPage apimLoginPage() {
+		waitForPageToLoad();
+		return PageFactory.initElements(driver, APIMLoginPage.class);
+	}
+
+	/* Method to click ViewMyProfile */
+	public ManageMyAccount clickViewMyProfile() {
+
+		viewMyProfile.click();
+		waitForPageToLoad();
+		return PageFactory.initElements(driver, ManageMyAccount.class);
+	}
+
+	/* Method to check if alert pop up occurs when clicked on My Settings link*/
 	public boolean isAlertPresent(WebDriver driver) {
 		try {
 			driver.switchTo().alert();
 			return true;
-		} // try
+		} 
 		catch (NoAlertPresentException Ex) {
 			return false;
-		} // catch
-	} // isAlertPresent()
+		}
+	}
 
-	//method to click on MySettings Link
+	/* Method to click on MySettings Link */
 	public void clickMySettingsLink() {
 
-		MySettings.click();
+		mySettings.click();
 		waitForPageToLoad();
-		implicitWait(10);
-
+		implicitWait(Constants.PAGE_WAIT_INTER_SYSTEM);
+		// Below code handles pop up which occurs while navigating to My
+		// settings page
 		while (isAlertPresent(driver)) {
 			Alert javascriptAlert = driver.switchTo().alert();
 			System.out.println(javascriptAlert.getText()); // Get text on alert
@@ -124,10 +124,75 @@ public class CommunityProfilePage extends WebPage {
 			waitForPageToLoad();
 		}
 
-		String titleCaptured = driver.getTitle();
-		System.out.println(titleCaptured);
-		String titleActual = "My Settings - Forums Blogs Events News | AT&T Developer Program";
-		if (titleCaptured.equalsIgnoreCase(titleActual)) {
+	}
+
+	/* Method to return Elements of Manage My Account Page */
+	public ManageMyAccount manageMyAccount() {
+		waitForPageToLoad();
+		return PageFactory.initElements(driver, ManageMyAccount.class);
+	}
+
+
+	/* Method to validate "Upgrade to Premium Access" Button is displayed */
+	public void upgradeToPremiumAccessButtonValidation() {
+
+		validateWebElementDisplayed(upgradeToPremiumAccessButtonCommunityProfilePage);
+	}
+	
+	/************* Validation Methods**********/
+	
+	/* Method to validate company name field */
+	public void validateCompanyName() {
+
+		companyName
+				.sendKeys(Constants.INVALID_COMPANY_NAME);
+		updateInformation.click();
+		implicitWait(5);
+		waitForPageToLoad();
+
+		String messageCaptured =CompanyNameValidationMsg.getText();
+		
+		String messageActual = "Company can not exceed 30 characters in length.";
+
+		if (messageCaptured.equalsIgnoreCase(messageActual)) {
+
+			storeVerificationResults(true, "Error Message is displayed");
+
+		} else {
+
+			storeVerificationResults(false, "Error Message is not displayed");
+		}
+
+	}
+
+	/* Method to validate Job Title field */
+	public void validateJobTitle() {
+
+		jobTitle.sendKeys("");
+		updateInformation.click();
+		waitForPageToLoad();
+
+		String messageCaptured = JobTitleValidationMsg.getText();
+		
+		String messageActual = "Job Title can not exceed 30 characters in length.";
+
+		if (messageCaptured.equalsIgnoreCase(messageActual)) {
+
+			storeVerificationResults(true, "Error Message is displayed");
+
+		} else {
+
+			storeVerificationResults(false, "Error Message is not displayed");
+		}
+
+	}
+
+
+	/* Method to validate My Settings Page */
+	public boolean validateMySettingsPage() {
+		String titleExpected = "My Settings - Forums Blogs Events News | AT&T Developer Program";
+		boolean result=validatePageTitle(titleExpected);
+		if (result) {
 
 			storeVerificationResults(true, "Page Title displayed");
 
@@ -135,69 +200,6 @@ public class CommunityProfilePage extends WebPage {
 
 			storeVerificationResults(false, "Page Title not displayed");
 		}
-
+		return result;
 	}
-		
-		//method to return ApimLogin Page elements
-		public APIMLoginPage apimLoginPage(){
-			waitForPageToLoad();
-			return PageFactory.initElements(driver, APIMLoginPage.class);
-		}
-		
-		
-		//method to return Elements of Manage My Account Page
-		public ManageMyAcct managemyacct(){
-			waitForPageToLoad();
-			return PageFactory.initElements(driver, ManageMyAcct.class);
-		}
-		
-		//method to validate company name field
-		public void validateCompanyName(){
-			
-			Company_Name.sendKeys("Abbbbbccccccccwwwwwwwww1234567789087655efgtrgtrhtyhffnhtrjtyhjtyjsdsdsfrggttngh");
-			Update_Information.click();
-			implicitWait(5);
-			waitForPageToLoad();
-			
-			String messageCaptured = driver.findElement(By.xpath("//*[@id='profile_form']/div/div/div[1]/div/div[1]/label[2]")).getText();
-			
-			String messageActual = "Company can not exceed 30 characters in length.";	
-			
-			if(messageCaptured.equalsIgnoreCase(messageActual)){
-			 	   
-		 	    storeVerificationResults(true, "Error Message is displayed");
-		 	   
-		 	    }else{
-		 	          
-		 	          storeVerificationResults(false, "Error Message is not displayed");
-		 	   }
-			
-		}
-		
-		//method to validate company name field
-				public void validateJobTilte(){
-					
-					JobTitle.sendKeys("Abbbbbccccccccwwwwwwwww1234567789087655efgtrgtrhtyhffnhtrjtyhjtyjsdsdsfrggttngh");
-					Update_Information.click();
-					waitForPageToLoad();
-					
-					String messageCaptured = driver.findElement(By.xpath("//*[@id='profile_form']/div/div/div[1]/div/div[2]/label[2]")).getText();
-					String messageActual = "Job Title can not exceed 30 characters in length.";	
-					
-					if(messageCaptured.equalsIgnoreCase(messageActual)){
-					 	   
-				 	    storeVerificationResults(true, "Error Message is displayed");
-				 	   
-				 	    }else{
-				 	          
-				 	          storeVerificationResults(false, "Error Message is not displayed");
-				 	   }
-					
-				}
-				
-				//method to validate "Upgrade to Premium Access" Button is displayed
-				public void upgradeToPremiumAccessButtonValidation(){
-					
-					validateWebElementDisplayed(upgradeToPremiumAccessButtonCommunityProfilePage);
-				}
 }

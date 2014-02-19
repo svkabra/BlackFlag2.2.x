@@ -1,6 +1,8 @@
 package ATT.Selenium_FVT.Pages;
 
 import java.io.File;
+import java.util.Iterator;
+import java.util.Set;
 
 import junit.framework.Assert;
 
@@ -375,34 +377,7 @@ public class MyAppsPage extends WebPage {
 		return PageFactory.initElements(driver, PricingPage.class);
 	}	
 
-	/* Method to click on Log a Ticket tab on My Apps page 	
-	public void clkLogTicket(){	
-		String mwh=driver.getWindowHandle();
-		logTicketLink.click();		
-		waitForPageToLoad();
-		Set s=driver.getWindowHandles();
-		//this method will you handle of all opened windows
-
-		Iterator ite=s.iterator();
-
-		while(ite.hasNext())
-		{
-		    String popupHandle=ite.next().toString();
-		    if(!popupHandle.contains(mwh))
-		    {
-		                driver.switchTo().window(popupHandle);
-		                here you can perform operation in pop-up window*
-		                String text = driver.getTitle();
-		        		Assert.assertEquals("Pricing", text);  // Title of Log a ticket page need to be inserted here. Currently Log a Ticket page is not opening. 
-		                System.out.println(text);
-		                driver.close();
-		                driver.switchTo().window(mwh);
-		    }
-		}
-		
-		
-		
-	}	*/
+	
     //***************************************Methods Created by Binny*******************************************************************	
 	/** Method to verify that Api analytics tab is not displayed (for playground user) */ 
 	public void isApiAnalyticsNotDisplayed(){

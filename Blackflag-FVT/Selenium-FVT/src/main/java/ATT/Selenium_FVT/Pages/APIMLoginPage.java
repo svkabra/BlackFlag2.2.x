@@ -14,311 +14,305 @@ import ATT.Selenium_FVT.Utilities.Component.Constants;
 
 public class APIMLoginPage extends WebPage {
 
-	//private static final String OAUTH_URL ="https://devpgm-uat-app.eng.mobilephone.net/developer/forward.jsp?passedItemId=14100062";
-
+	// Page Object "Support Oevrview"
 	@FindBy(how = How.LINK_TEXT, using = "Support Overview")
-	public WebElement Support;
+	public WebElement support;
 
-	@FindBy(how = How.ID, using="g_signin_password")
-	private WebElement password_Popup;
+	// Page Object "Password Popup"
+	@FindBy(how = How.ID, using = "g_signin_password")
+	private WebElement passwordPopup;
 
-	@FindBy(how = How.ID, using ="g_signin_username")
-	private WebElement userName_Popup;
+	// Page Object "Username Popup"
+	@FindBy(how = How.ID, using = "g_signin_username")
+	private WebElement userNamePopup;
 
-	@FindBy(how = How.NAME, using ="signIn")
+	// Page Object "Popup Signin button"
+	@FindBy(how = How.NAME, using = "signIn")
 	private WebElement popupSignInButton;
-	
-	@FindBy(how = How.CLASS_NAME, using ="field_error")
+
+	// Page Object "Field Error"
+	@FindBy(how = How.CLASS_NAME, using = "field_error")
 	private WebElement fieldError;
-	
+
+	// Page Object "Sign In"
 	@FindBy(how = How.CLASS_NAME, using = "login")
 	public WebElement signIn;
-	
+
+	// Page Object "Get Started Free"
 	@FindBy(how = How.XPATH, using = "//*[@id='att-header']/nav/a[3]")
 	public WebElement getStartedFree;
-	
-	@FindBy(how = How.NAME, using="signIn")
+
+	// Page Object "Sign In" Button
+	@FindBy(how = How.NAME, using = "signIn")
 	private WebElement signInButton;
 
-	@FindBy(id="signin_username")
+	// Page Object "Username"
+	@FindBy(id = "signin_username")
 	private WebElement userName;
 
-	@FindBy(id="signin_password")
+	// Page Object "Password"
+	@FindBy(id = "signin_password")
 	private WebElement password;
 
+	// Page Object "APIs & Tools" link
 	@FindBy(how = How.LINK_TEXT, using = "APIs & Tools")
-	public WebElement APIs_Tools;
+	public WebElement aPIsTools;
 
-	@FindBy(how = How.LINK_TEXT, using="Submit A Ticket")
-	private WebElement LogTicket;
+	// Page Object "Submit A Ticket" link
+	@FindBy(how = How.LINK_TEXT, using = "Submit A Ticket")
+	private WebElement logTicket;
 
-	@FindBy(how = How.LINK_TEXT, using="Manage My Account")
+	// Page Object "Manage My Account" link
+	@FindBy(how = How.LINK_TEXT, using = "Manage My Account")
 	private WebElement manageMyAcct;
 
-	@FindBy(id="signInLink")
+	// Page Object "Sign In"
+	@FindBy(id = "signInLink")
 	public WebElement signinLink;
 
+	// Page Object "May Apps" button
 	@FindBy(how = How.LINK_TEXT, using = "My Apps")
 	public WebElement myApps;
 
-	@FindBy(how = How.CLASS_NAME ,using="logo")
+	// Page Object "Logo"
+	@FindBy(how = How.CLASS_NAME, using = "logo")
 	private WebElement home;
-	
-	@FindBy(how = How.LINK_TEXT ,using="See more success stories")
+
+	// Page Object "See more success stories" link
+	@FindBy(how = How.LINK_TEXT, using = "See more success stories")
 	private WebElement successStories;
-	
-	@FindBy(how = How.LINK_TEXT ,using="Contact an API Expert")
+
+	// Page Object "Contact an API Expert"
+	@FindBy(how = How.LINK_TEXT, using = "Contact an API Expert")
 	private WebElement contactExpert;
-	
- 	
-	@FindBy(how = How.LINK_TEXT ,using="Check out Events & Hackathons")
+
+	// Page Object "Check out Events & Hackathons" Link
+	@FindBy(how = How.LINK_TEXT, using = "Check out Events & Hackathons")
 	private WebElement checkOutHackathonEvents;
-	
-	/* Method to Click hackathon and events from home page */
-	public void clkHackathonEventsButton(){
-		checkOutHackathonEvents.click();
-		waitForPageToLoad();
-		validatePageTitle("Developer Events | AT&T Developer Program  | AT&T Developer");
-	}
-		
 
+	// Page Object "username" header
+	@FindBy(how = How.XPATH, using = "//*[@id='att-header']/nav/form/div/a")
+	private WebElement userNameHeader;
 
-	public APIMLoginPage(WebDriver driver){
+	/* Parameterized Constructor */
+	public APIMLoginPage(WebDriver driver) {
 		super(driver);
-
 	}
 
 	@Override
 	public void openURL() {
 		driver.navigate().to(Constants.APIM_HOME_URL);
 		waitForPageToLoad();
-		PageFactory.initElements(driver, this);	
+		PageFactory.initElements(driver, this);
 	}
 
+	/* Method to Click hackathon and events from home page */
+	public void clickHackathonEventsButton() {
+		checkOutHackathonEvents.click();
+		waitForPageToLoad();
+	}
 
-
-	public void enterPasword(String pwd){
-		password_Popup.sendKeys(pwd);
+	/* Method to enter password in the popup */
+	public void enterPassword(String pwd) {
+		passwordPopup.sendKeys(pwd);
 
 	}
 
-	public void enterUserName(String usrName){
+	/* Method to enter username in the popup */
+	public void enterUserName(String userName) {
 		signinLink.click();
-		implicitWait(1);
-		userName_Popup.sendKeys(usrName);
+		implicitWait(Constants.PAGE_WAIT_AJAX);
+		userNamePopup.sendKeys(userName);
+	}
+
+	/* Playground Login Method for f3 Environment */
+	public void playGroundLogIn() {
+
+		signIn.click();
+		waitForPageToLoad();
+		signIn.click();
+		userNamePopup.click();
+		userNamePopup.sendKeys(Constants.PG_USERNAME);
+		waitForElement(password);
+		passwordPopup.click();
+		passwordPopup.sendKeys(Constants.PG_PASSWORD);
+		waitForPageToLoad();
+		popupSignInButton.click();
+
+	}
+
+	/* Playground Login Method for f3 Environment */
+	public void playGroundLogInCancelDelete() {
+
+		signIn.click();
+		waitForPageToLoad();
+		signIn.click();
+		userNamePopup.click();
+		userNamePopup.sendKeys(Constants.PG_USERNAME_CANCELDELELTE);
+		waitForElement(password);
+		passwordPopup.click();
+		passwordPopup.sendKeys(Constants.PG_PASSWORD__CANCELDELELTE);
+		waitForPageToLoad();
+		popupSignInButton.click();
+
+	}
+
+	/* Developer Login Method for f3 Environment */
+	public void developerLogin() {
+
+		signIn.click();
+		waitForPageToLoad();
+		signIn.click();
+		userNamePopup.click();
+		userNamePopup.sendKeys(Constants.DEV_USERNAME);
+		waitForElement(password);
+		passwordPopup.click();
+		passwordPopup.sendKeys(Constants.DEV_PASSWORD);
+		waitForPageToLoad();
+		popupSignInButton.click();
+
+	}
+
+	/* OPA Login Method for f3 Environment */
+	public void opaLogin() {
+
+		signIn.click();
+		waitForPageToLoad();
+		signIn.click();
+		userNamePopup.click();
+		userNamePopup.sendKeys(Constants.OPA_USERNAME);
+		waitForElement(password);
+		passwordPopup.click();
+		passwordPopup.sendKeys(Constants.OPA_PASSWORD);
+		waitForPageToLoad();
+		popupSignInButton.click();
+
+	}
+
+	/*
+	 * Developer Login Method for f3 Environment for verifying account with
+	 * applications- Hemant
+	 */
+	public void devLogInADVWITHAPP() {
+		signIn.click();
+		waitForPageToLoad();
+		signIn.click();
+		userNamePopup.click();
+		userNamePopup.sendKeys(Constants.DEV_USERNAME_ADV);
+		waitForElement(password);
+		passwordPopup.click();
+		passwordPopup.sendKeys(Constants.DEV_PASSWORD_ADV);
+		waitForPageToLoad();
+		popupSignInButton.click();
+	}
+
+	/*
+	 * OPA Login Method for f3 Environment for verifying account with
+	 * applications - Hemant
+	 */
+	public void opaLogInADVWITAPP() {
+		signIn.click();
+		waitForPageToLoad();
+		signIn.click();
+		userNamePopup.click();
+		userNamePopup.sendKeys(Constants.OPA_USERNAME_ADV);
+		waitForElement(password);
+		passwordPopup.click();
+		passwordPopup.sendKeys(Constants.OPA_PASSWORD_ADV);
+		waitForPageToLoad();
+		popupSignInButton.click();
+
 	}
 
 
-  
-	//Playground Login Method for f3 Environment 
-
-	public void pgLogIn(){
-
+	/* Developer Login Method for developer account without application- Hemant */
+	public void devLogInADVWOAPP() {
 		signIn.click();
 		waitForPageToLoad();
 		signIn.click();
-		userName_Popup.click();
-		userName_Popup.sendKeys(Constants.PG_USERNAME);
+		implicitWait(Constants.PAGE_WAIT_AJAX);
+		userNamePopup.click();
+		userNamePopup.sendKeys(Constants.DEV_USERNAME_ADV_NO_APP);
 		waitForElement(password);
-		password_Popup.click();
-		password_Popup.sendKeys(Constants.PG_PASSWORD);
+		passwordPopup.click();
+		passwordPopup.sendKeys(Constants.DEV_PASSWORD_ADV_NO_APP);
+		waitForPageToLoad();
+		popupSignInButton.click();
+	}
+
+	/* OPA Login Method for OPA account without application- Hemant */
+	public void opaLogInADVWOAPP() {
+		signIn.click();
+		waitForPageToLoad();
+		signIn.click();
+		userNamePopup.click();
+		userNamePopup.sendKeys(Constants.OPA_USERNAME_ADV_NO_APP);
+		waitForElement(password);
+		passwordPopup.click();
+		passwordPopup.sendKeys(Constants.OPA_PASSWORD_ADV_NO_APP);
 		waitForPageToLoad();
 		popupSignInButton.click();
 
+	}
 
-	} 
-	
-	//Playground Login Method for f3 Environment 
-
-	public void pgLogInCancelDelete(){
-
+	/* Method to go to My Apps Page */
+	public MyAppsPage login() {
 		signIn.click();
 		waitForPageToLoad();
-		signIn.click();
-		userName_Popup.click();
-		userName_Popup.sendKeys(Constants.PG_USERNAME_CANCELDELELTE);
-		waitForElement(password);
-		password_Popup.click();
-		password_Popup.sendKeys(Constants.PG_PASSWORD__CANCELDELELTE);
-		waitForPageToLoad();
-		popupSignInButton.click();
-
-
-	} 
-	
-	//Developer Login Method for f3 Environment 
-
-		public void devLogIn(){
-
-			signIn.click();
-			waitForPageToLoad();
-			signIn.click();
-			userName_Popup.click();
-			userName_Popup.sendKeys(Constants.DEV_USERNAME);
-			waitForElement(password);
-			password_Popup.click();
-			password_Popup.sendKeys(Constants.DEV_PASSWORD);
-			waitForPageToLoad();
-			popupSignInButton.click();
-
-
-		} 
-		//OPA Login Method for f3 Environment 
-
-		public void opaLogIn(){
-
-			signIn.click();
-			waitForPageToLoad();
-			signIn.click();
-			userName_Popup.click();
-			userName_Popup.sendKeys(Constants.OPA_USERNAME);
-			waitForElement(password);
-			password_Popup.click();
-			password_Popup.sendKeys(Constants.OPA_PASSWORD);
-			waitForPageToLoad();
-			popupSignInButton.click();
-
-
-		} 
-		
-				
-		//Developer Login Method for f3 Environment for verifying account with applications- Hemant 
-		public void devLogInADVWITHAPP(){
-			signIn.click();
-			waitForPageToLoad();
-			signIn.click();
-			userName_Popup.click();
-			userName_Popup.sendKeys(Constants.DEV_USERNAME_ADV);
-			waitForElement(password);
-			password_Popup.click();
-			password_Popup.sendKeys(Constants.DEV_PASSWORD_ADV);
-			waitForPageToLoad();
-			popupSignInButton.click();
-		} 
-		//OPA Login Method for f3 Environment for verifying account with applications - Hemant
-
-		public void opaLogInADVWITAPP(){
-			signIn.click();
-			waitForPageToLoad();
-			signIn.click();
-			userName_Popup.click();
-			userName_Popup.sendKeys(Constants.OPA_USERNAME_ADV);
-			waitForElement(password);
-			password_Popup.click();
-			password_Popup.sendKeys(Constants.OPA_PASSWORD_ADV);
-			waitForPageToLoad();
-			popupSignInButton.click();
-
-		} 
-
-	    //Procedure to wait for specified milliseconds
-	    public static void wait(int ms){
-	           try {                             
-	                  Thread.sleep(ms);
-	           } catch (InterruptedException e) {
-
-	                  e.printStackTrace();
-	           }
-	    }
-
-	    
-		//Developer Login Method for developer account without application- Hemant 
-		public void devLogInADVWOAPP(){
-			signIn.click();
-			waitForPageToLoad();
-			signIn.click();
-			wait(2000);
-			userName_Popup.click();
-			userName_Popup.sendKeys(Constants.DEV_USERNAME_ADV_NO_APP);
-			waitForElement(password);
-			password_Popup.click();
-			password_Popup.sendKeys(Constants.DEV_PASSWORD_ADV_NO_APP );
-			waitForPageToLoad();
-			popupSignInButton.click();
-		} 
-		//OPA Login Method for OPA account without application- Hemant
-
-		public void opaLogInADVWOAPP(){
-			signIn.click();
-			waitForPageToLoad();
-			signIn.click();
-			userName_Popup.click();
-			userName_Popup.sendKeys(Constants.OPA_USERNAME_ADV_NO_APP);
-			waitForElement(password);
-			password_Popup.click();
-			password_Popup.sendKeys(Constants.OPA_PASSWORD_ADV_NO_APP );
-			waitForPageToLoad();
-			popupSignInButton.click();
-
-		} 
-
-	public MyAppsPage login(){
-		signIn.click();
-		waitForPageToLoad();	
 		myApps.click();
 		waitForPageToLoad();
-		return PageFactory.initElements(driver, MyAppsPage.class);			
+		return PageFactory.initElements(driver, MyAppsPage.class);
 	}
-/* Method for Testing login functionality */
-	public void testLogIn(String uname, String pwd){
+
+	/* Method for Testing login functionality */
+	public void testLogIn(String aUsername, String aPassword) {
 
 		signIn.click();
 		waitForPageToLoad();
 		signIn.click();
-		userName_Popup.click();
-		userName_Popup.sendKeys(uname);
+		userNamePopup.click();
+		userNamePopup.sendKeys(aUsername);
 		waitForElement(password);
-		password_Popup.click();
-		password_Popup.sendKeys(pwd);
+		passwordPopup.click();
+		passwordPopup.sendKeys(aPassword);
 		waitForPageToLoad();
 		popupSignInButton.click();
-		int size= driver.findElements(By.className("field_error")).size();
-		if (size!=0){
-			if(fieldError.isDisplayed()){
-				validateWebElementDisplayed(fieldError);
-			}
-			else{
-				validatePageTitle("AT&T Developer Program | APIs, SDKs, & Developer Resources | AT&T Developer");
-			}
-		}
 	}
-	 
+
 	/* Method to open join now page */
-	public JoinNowPage clkGetStartedFree(){
+	public JoinNowPage clickGetStartedFree() {
 		getStartedFree.click();
 		waitForPageToLoad();
 		driver.findElement(By.linkText("close")).click();
 		waitForPageToLoad();
-		validatePageTitle("Get Free Basic Access and Join the AT&T Developer Program");
-		return PageFactory.initElements(driver, JoinNowPage.class);	
+		validateGetStartedFree();
+		return PageFactory.initElements(driver, JoinNowPage.class);
 	}
-    //**************************Rohit*********************************
-    
-    //username header
-    @FindBy(how = How.XPATH ,using="//*[@id='att-header']/nav/form/div/a")
-    private WebElement userNameHeader;
-    
-    public void logout(){
-    	waitForElement(userNameHeader);
-        Hover(userNameHeader);
+
+	/* Method to logout */
+	public void logout() {
+		waitForElement(userNameHeader);
+		Hover(userNameHeader);
 		driver.findElement(By.id("logOut")).click();
 		waitForAjaxInactivity();
-		validateWebElementDisplayed(driver.findElement(By.linkText("Sign In")));
+		validateLogout();
+		
 	}
-    
-	// method to manage alert pop up
+
+
+
+	/* Method to check if alert pop up occurs */
 	public boolean isAlertPresent(WebDriver driver) {
 		try {
 			driver.switchTo().alert();
 			return true;
-		} // try
-		catch (NoAlertPresentException Ex) {
+		} catch (NoAlertPresentException Ex) {
 			return false;
-		} // catch
-	} // isAlertPresent()
-	
-    //method to click on Manage My Account link
-	public ManageMyAcct clickManageMyAcctLink() {
+		}
+	}
+
+	/* Method to click on Manage My Account link */
+	public ManageMyAccount clickManageMyAcctLink() {
 
 		waitForElement(userNameHeader);
 		Hover(userNameHeader);
@@ -334,11 +328,115 @@ public class APIMLoginPage extends WebPage {
 			javascriptAlert.accept();
 			waitForPageToLoad();
 		}
+		validateManageMyAccountPage();
+		return PageFactory.initElements(driver, ManageMyAccount.class);
+	}
 
-		String titleCaptured = driver.getTitle();
-		System.out.println(titleCaptured);
-		String titleActual = "Manage My Account";
-		if (titleCaptured.equalsIgnoreCase(titleActual)) {
+	/* Method to go to "API Matrix" Page */
+	public MyAppsPage clickMyApps() {
+		waitForElement(myApps);
+		myApps.click();
+		waitForPageToLoad();
+		implicitWait(5);
+		validateMyAppsPage();
+		return PageFactory.initElements(driver, MyAppsPage.class);
+	}
+
+	/* Method to click on See more Success Stories page */
+	public void clkSeeMoreSuccessStories() {
+		successStories.click();
+		waitForPageToLoad();
+		validateSuccessStoriesPage();
+	}
+
+	/* Method to login */
+	public MyAppsPage logInLink(String username, String pwd) {
+
+		signIn.click();
+		waitForPageToLoad();
+		userNamePopup.sendKeys(username);
+		passwordPopup.sendKeys(pwd);
+		waitForPageToLoad();
+		popupSignInButton.click();
+		return PageFactory.initElements(driver, MyAppsPage.class);
+	}
+
+	/* Method to click on Log A Ticket link */
+	public void clickLogTicket() {
+
+		implicitWait(2);
+		Hover(support);
+		implicitWait(2);
+		logTicket.click();
+
+	}
+
+	/************ Validation Methods ***********/
+
+	/* Method to validate Hackathon Events Page */
+	public Boolean validateHackathonEventsPage() {
+
+		String titleExpected = "Developer Events | AT&T Developer Program  | AT&T Developer";
+		Boolean result=validatePageTitle(titleExpected);
+		if (result) {
+
+			storeVerificationResults(true, "Page Title displayed");
+
+		} else {
+
+			storeVerificationResults(false, "Page Title not displayed");
+
+		}
+		
+		return result;
+	}
+
+	/* Method to validate LogIn Page */
+	public boolean validateLogin() {
+		boolean result=false;
+		String titleExpected = "Developer Events | AT&T Developer Program  | AT&T Developer";
+		int size = driver.findElements(By.className("field_error")).size();
+		if (size != 0) {
+			if (fieldError.isDisplayed()) {
+				validateWebElementDisplayed(fieldError);
+			} else {
+				if (validatePageTitle(titleExpected)) {
+
+					storeVerificationResults(true, "Page Title displayed api");
+					result=true;
+				} else {
+
+					storeVerificationResults(false, "Page Title not displayed");
+
+				}
+			}
+		}
+		return result;
+
+	}
+
+	/* Method to validate Get Started Free */
+	public boolean validateGetStartedFree() {
+		String titleExpected = "Get Free Basic Access and Join the AT&T Developer Program";
+		
+		boolean result=validatePageTitle(titleExpected);
+		if (result) {
+
+			storeVerificationResults(true, "Page Title displayed");
+
+		} else {
+
+			storeVerificationResults(false, "Page Title not displayed");
+
+		}
+		
+		return result;
+	}
+
+	/* Method to validate Manage My Account Page */
+	public void validateManageMyAccountPage() {
+		String titleExpected = "Manage My Account";
+		if (validatePageTitle(titleExpected)) {
 
 			storeVerificationResults(true, "Page Title displayed");
 
@@ -347,48 +445,41 @@ public class APIMLoginPage extends WebPage {
 			storeVerificationResults(false, "Page Title not displayed");
 		}
 
-		return PageFactory.initElements(driver, ManageMyAcct.class);
-	}
-    
-    
-    //@@@@@@@@@@@@@@@@@@@@@@---------------------------@@@@@@@@@@@@@@@@@@
-
-	//Method to hover over a link and access the sub element
-	public MyAppsPage clickMyApps(){
-		waitForElement(myApps);
-		myApps.click();
-		waitForPageToLoad();
-		implicitWait(5);
-		validatePageTitle("API Matrix");
-		return PageFactory.initElements(driver, MyAppsPage.class);
 	}
 
-	/*Method to click on See more Success Stories page */
-		public void clkSeeMoreSuccessStories(){
-			successStories.click();
-			waitForPageToLoad();
-			validatePageTitle("Success Stories | AT&T Developer");
+	/* Method to validate My Apps Page */
+	public void validateMyAppsPage() {
+		String titleExpected = "API Matrix";
+		if (validatePageTitle(titleExpected)) {
+
+			storeVerificationResults(true, "Page Title displayed");
+
+		} else {
+
+			storeVerificationResults(false, "Page Title not displayed");
 		}
 
-	public MyAppsPage LogIn_Link(String username, String pwd){
-
-		signIn.click();
-		waitForPageToLoad();
-		userName_Popup.sendKeys(username);
-		password_Popup.sendKeys(pwd);
-		waitForPageToLoad();
-		popupSignInButton.click();
-		return PageFactory.initElements(driver, MyAppsPage.class);
 	}
 
-	//method to click on Log A Ticket link
-	public void clickLogTicket(){
+	/* Method to validate Success Stories Page */
+	public void validateSuccessStoriesPage() {
+		String titleExpected = "Success Stories | AT&T Developer";
+		if (validatePageTitle(titleExpected)) {
 
-		implicitWait(2);
-		Hover(Support);
-		implicitWait(2);
-		LogTicket.click();
+			storeVerificationResults(true, "Page Title displayed");
 
+		} else {
+
+			storeVerificationResults(false, "Page Title not displayed");
+		}
+
+	}
+	
+	/*Method to validate Logout*/
+	public boolean validateLogout() {
+		
+		boolean result=validateWebElementDisplayed(driver.findElement(By.linkText("Sign In")));
+		return result;
 	}
 
 }

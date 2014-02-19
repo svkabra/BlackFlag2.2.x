@@ -200,16 +200,17 @@ public class PageSupport {
     	}
 
 
-    protected void validateWebElementDisplayed(WebElement element){
- 	   
+    protected boolean validateWebElementDisplayed(WebElement element){
+ 	   boolean result=false;
  	   if( element.isDisplayed()){
  	   
  	    storeVerificationResults(true, "Element is displayed");
- 	   
+ 	   result=true;
  	    }else{
  	          
  	          storeVerificationResults(false, "Element is not displayed");
  	   }
+ 	   return result;
  	}
     
     protected void validateWebElementNotDisplayed(WebElement element){
@@ -428,7 +429,32 @@ protected void validateWebElementEnabled(WebElement element){
 	  else
 		  return false;
   } 
-  
+  public void createTestResultFile(){
+		    
+		/*	System.out.println("Write data to an Excel Sheet");
+			try {
+				FileOutputStream fos=new FileOutputStream("C:/temp/testresult.xls");
+				HSSFWorkbook workBook = new HSSFWorkbook();
+				HSSFSheet spreadSheet = workBook.createSheet("TestResult_Report");
+				HSSFRow row;
+				HSSFCell cell;
+				
+				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}*/
+			
+//			for(int i=0;i<arr.size();i++){
+//			   row = spreadSheet.createRow((short) i);
+//			cell = row.createCell(i);
+//			System.out.println(.get(i));
+//			cell.setCellValue(temp2.get(i).toString());
+//			}
+//			System.out.println("Done");
+//			workBook.write(fos);
+//			temp2.clear();
+
+			}
     
     
 }

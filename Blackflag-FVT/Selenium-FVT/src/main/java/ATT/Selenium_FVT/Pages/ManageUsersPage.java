@@ -39,9 +39,9 @@ public class ManageUsersPage extends WebPage {
 		return PageFactory.initElements(driver, APIMLoginPage.class);
 	}
 	
-	public ManageMyAcct managemyacct(){
+	public ManageMyAccount managemyacct(){
 		waitForPageToLoad();
-		return PageFactory.initElements(driver, ManageMyAcct.class);
+		return PageFactory.initElements(driver, ManageMyAccount.class);
 	}
 	
 	//method to click Add Users link

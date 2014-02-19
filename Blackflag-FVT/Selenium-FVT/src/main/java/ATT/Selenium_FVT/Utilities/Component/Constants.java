@@ -87,7 +87,11 @@ public class Constants {
     public static final String OPAAPPNAMEWITHADSINPROD = "00App_With_Ads_API_Prod";
     public static final String OPAAPPNAMEWOADSINPROD = "00App_No_Ads_API_1";
 
-
-
-
+    public static final Integer PAGE_WAIT_AJAX=2;
+    public static final Integer PAGE_WAIT_INTRA_SYSTEM_SHORT=2;
+    public static final Integer PAGE_WAIT_INTRA_SYSTEM_LONG=5;
+    public static final Integer PAGE_WAIT_INTER_SYSTEM=10;
+    
+    public static final String INVALID_COMPANY_NAME="Abbbbbccccccccwwwwwwwww1234567789087655efgtrgtrhtyhffnhtrjtyhjtyjsdsdsfrggttngh";
+    public static final String INVALID_JOB_TITLE="Abbbbbccccccccwwwwwwwww1234567789087655efgtrgtrhtyhffnhtrjtyhjtyjsdsdsfrggttngh";
 }

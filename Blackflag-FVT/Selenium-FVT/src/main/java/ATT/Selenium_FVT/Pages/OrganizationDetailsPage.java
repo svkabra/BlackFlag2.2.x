@@ -1,6 +1,8 @@
 package ATT.Selenium_FVT.Pages;
 
 
+import junit.framework.Assert;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -168,9 +170,9 @@ public class OrganizationDetailsPage extends WebPage {
 	//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$----------------------------------$$$$$$$$$$$$$$$$$$$$$$$$$$$		
 			
 			
-			public ManageMyAcct managemyacct(){
+			public ManageMyAccount managemyacct(){
 				waitForPageToLoad();
-				return PageFactory.initElements(driver, ManageMyAcct.class);
+				return PageFactory.initElements(driver, ManageMyAccount.class);
 			}
 			
 	//method to select value from dropdown

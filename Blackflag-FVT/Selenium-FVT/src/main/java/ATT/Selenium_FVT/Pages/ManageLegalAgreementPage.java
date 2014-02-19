@@ -9,6 +9,10 @@ import ATT.Selenium_FVT.Utilities.Browser.WebPage;
 
 public class ManageLegalAgreementPage extends WebPage {
 
+	//Page Object "Organization Details" header 
+	@FindBy(how=How.XPATH, using="//*[@id='content-sections']/div[1]/div[2]/div/div/div/div/div[3]/div/div[5]/a")
+	private WebElement DownloadLink;
+
 	public ManageLegalAgreementPage(WebDriver driver) {
 		super(driver);
 		// TODO Auto-generated constructor stub
@@ -17,26 +21,11 @@ public class ManageLegalAgreementPage extends WebPage {
 	@Override
 	public void openURL() {
 		//driver.get(APIM_URL);
-		driver.navigate().to("https://devpgm-uat-app.eng.mobilephone.net/developer/forward.jsp?passedItemId=100006");
-		waitForPageToLoad();
+		//driver.navigate().to("https://devpgm-uat-app.eng.mobilephone.net/developer/forward.jsp?passedItemId=100006");
+		//waitForPageToLoad();
 		PageFactory.initElements(driver, this);
 		
 	}
-	
-	public APIMLoginPage apimLoginPage(){
-		waitForPageToLoad();
-		return PageFactory.initElements(driver, APIMLoginPage.class);
-	}
-	
-	public ManageMyAcct managemyacct(){
-		waitForPageToLoad();
-		return PageFactory.initElements(driver, ManageMyAcct.class);
-	}
-	
-	
-	//Page Object "Organization Details" header 
-			@FindBy(how=How.XPATH, using="//*[@id='content-sections']/div[1]/div[2]/div/div/div/div/div[3]/div/div[5]/a")
-			private WebElement DownloadLink;
 			
 	//method to click Download link
 			public void clickDownloadLink(){

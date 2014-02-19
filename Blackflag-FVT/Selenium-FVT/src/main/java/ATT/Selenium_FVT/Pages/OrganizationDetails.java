@@ -113,9 +113,9 @@ public class OrganizationDetails extends WebPage {
 			
 			
 			
-			public ManageMyAcct managemyacct(){
+			public ManageMyAccount managemyacct(){
 				waitForPageToLoad();
-				return PageFactory.initElements(driver, ManageMyAcct.class);
+				return PageFactory.initElements(driver, ManageMyAccount.class);
 			}
 			
 	//method to select value from dropdown

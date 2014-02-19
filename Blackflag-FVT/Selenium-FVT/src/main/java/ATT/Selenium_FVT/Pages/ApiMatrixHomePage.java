@@ -1,5 +1,6 @@
 package ATT.Selenium_FVT.Pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,7 +12,7 @@ import ATT.Selenium_FVT.Utilities.Component.Constants;
 
 public class ApiMatrixHomePage extends WebPage {
 
-	//private static final String OAUTH_URL ="https://devpgm-uat-app.eng.mobilephone.net/developer/forward.jsp?passedItemId=14100062";
+	private static final String OAUTH_URL ="https://devpgm-uat-app.eng.mobilephone.net/developer/forward.jsp?passedItemId=14100062";
 
 	@FindBy(how = How.LINK_TEXT, using = "Support Overview")
 	public WebElement Support;
@@ -227,7 +228,7 @@ public class ApiMatrixHomePage extends WebPage {
     
     
     //method to click on Manage My Account link
-    public ManageMyAcct clickManageMyAcctLink(){
+    public ManageMyAccount clickManageMyAcctLink(){
            
            waitForElement(userNameHeader);
            Hover(userNameHeader);
@@ -248,7 +249,7 @@ public class ApiMatrixHomePage extends WebPage {
              }
            
            
-           return PageFactory.initElements(driver, ManageMyAcct.class);
+           return PageFactory.initElements(driver, ManageMyAccount.class);
     }
     
     
